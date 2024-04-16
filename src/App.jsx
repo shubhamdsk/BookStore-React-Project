@@ -4,11 +4,12 @@ import Courses from "./home/courses/Courses";
 function App() {
   return (
     <>
-      {/* <Home /> */}
-      <Routes>
-        <Route path="/" element={<Home />}></Route>
-        <Route path="/course" element={<Courses />}></Route>
-      </Routes>
+      <div className="dark:bg-slate-900 dark:text-white">
+        <Routes>
+          <Route path="/" element={<Home />}></Route>
+          <Route path="/course" element={<Courses />}></Route>
+        </Routes>
+      </div>
     </>
   );
 }
