@@ -98,7 +98,7 @@ function Navbar() {
                 <input
                   type="text"
                   className="grow outline-none rounded-md px-1 dark:bg-slate-900 dark:text-white"
-                  placeholder="Search"
+                  placeholder="Search "
                 />
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
