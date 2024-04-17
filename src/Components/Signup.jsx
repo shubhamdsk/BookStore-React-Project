@@ -15,7 +15,7 @@ const Signup = () => {
     <>
       <div className="flex h-screen items-center justify-center">
         <div className=" w-[600px] ">
-          <div className="modal-box">
+          <div className="modal-box dark:bg-gray-800 bg-white p-8 rounded-lg shadow-lg">
             <form onSubmit={handleSubmit(onSubmit)} method="dialog">
               {/* if there is a button in form, it will close the modal */}
               <Link
@@ -32,7 +32,7 @@ const Signup = () => {
                 <input
                   type="text"
                   placeholder="Enter Your Name"
-                  className="w-80 px-3 py-1 border rounded-md outline-none"
+                  className="w-full px-3 py-1 border rounded-md outline-none dark:bg-gray-700"
                   {...register("Name", { required: true })}
                 />
                 <br />
@@ -49,7 +49,7 @@ const Signup = () => {
                 <input
                   type="email"
                   placeholder="Enter Your Email"
-                  className="w-80 px-3 py-1 border rounded-md outline-none"
+                  className="w-full px-3 py-1 border rounded-md outline-none dark:bg-gray-700"
                   {...register("email", { required: true })}
                 />
                 <br />
@@ -66,7 +66,7 @@ const Signup = () => {
                 <input
                   type="password"
                   placeholder="Enter Your Password"
-                  className="w-80 px-3 py-1 border rounded-md outline-none"
+                  className="w-full px-3 py-1 border rounded-md outline-none dark:bg-gray-700"
                   {...register("password", { required: true })}
                 />
                 <br />
@@ -85,7 +85,7 @@ const Signup = () => {
                   Have Account ?
                   <button
                     className="underline
-           text-blue-600 cursor-pointer"
+           text-blue-600 cursor-pointer  dark:text-blue-300"
                     onClick={() =>
                       document.getElementById("my_modal_3").showModal()
                     }
