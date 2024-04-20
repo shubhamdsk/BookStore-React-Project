@@ -9,6 +9,7 @@ function Login() {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
   const onSubmit = async (data) => {
     const userInfo = {
       email: data.email,
@@ -19,18 +20,22 @@ function Login() {
       .then((res) => {
         console.log(res.data);
         if (res.data) {
-          toast.success("User logged in successfully");
+          toast.success("Loggedin Successfully");
+          document.getElementById("my_modal_3").close();
+          setTimeout(() => {
+            window.location.reload();
+            localStorage.setItem("Users", JSON.stringify(res.data.user));
+          }, 1000);
         }
-        localStorage.setItem("User", JSON.stringify(res.data.user));
       })
       .catch((err) => {
         if (err.response) {
           console.log(err);
-          toast.error("Login Failure : " + err.response.data.message);
+          toast.error("Error: " + err.response.data.message);
+          setTimeout(() => {}, 2000);
         }
       });
   };
-
   return (
     <div>
       <dialog id="my_modal_3" className="modal">
@@ -48,7 +53,7 @@ function Login() {
             <h3 className="font-bold text-lg">Login</h3>
             {/* Email */}
             <div className="mt-4 space-y-2">
-              <label>Email</label> {/* Added label for accessibility */}
+              <span>Email</span>
               <br />
               <input
                 type="email"
@@ -65,7 +70,7 @@ function Login() {
             </div>
             {/* password */}
             <div className="mt-4 space-y-2">
-              <label>Password</label> {/* Added label for accessibility */}
+              <span>Password</span>
               <br />
               <input
                 type="password"
