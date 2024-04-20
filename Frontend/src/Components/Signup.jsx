@@ -1,16 +1,42 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Login from "./Login";
 import { useForm } from "react-hook-form";
-
-const Signup = () => {
+import axios from "axios";
+import toast from "react-hot-toast";
+function Signup() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state?.from?.pathname || "/";
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
 
+  const onSubmit = async (data) => {
+    const userInfo = {
+      fullname: data.fullname,
+      email: data.email,
+      password: data.password,
+    };
+    await axios
+      .post("http://localhost:1157/user/signup", userInfo)
+      .then((res) => {
+        console.log(res.data.message);
+        if (res.data) {
+          toast.success("Signup Successfully");
+          navigate(from, { replace: true });
+        }
+        localStorage.setItem("Users", JSON.stringify(res.data.user));
+      })
+      .catch((err) => {
+        if (err.response) {
+          console.log(err);
+          toast.error("Error: " + err.response.data.message);
+        }
+      });
+  };
   return (
     <>
       <div className="flex h-screen items-center justify-center">
@@ -25,30 +51,30 @@ const Signup = () => {
                 ✕
               </Link>
 
-              <h3 className="font-bold text-lg">SignUp</h3>
-              {/* Name */}
+              <h3 className="font-bold text-lg">Signup</h3>
               <div className="mt-4 space-y-2">
-                <span>Name</span> <br />
+                <span>Name</span>
+                <br />
                 <input
                   type="text"
-                  placeholder="Enter Your Name"
+                  placeholder="Enter your fullname"
                   className="w-full px-3 py-1 border rounded-md outline-none dark:bg-gray-700"
-                  {...register("Name", { required: true })}
+                  {...register("fullname", { required: true })}
                 />
                 <br />
-                {errors.Name && (
+                {errors.fullname && (
                   <span className="text-sm text-red-500">
                     This field is required
                   </span>
                 )}
               </div>
-
               {/* Email */}
               <div className="mt-4 space-y-2">
-                <span>Email</span> <br />
+                <span>Email</span>
+                <br />
                 <input
                   type="email"
-                  placeholder="Enter Your Email"
+                  placeholder="Enter your email"
                   className="w-full px-3 py-1 border rounded-md outline-none dark:bg-gray-700"
                   {...register("email", { required: true })}
                 />
@@ -59,13 +85,13 @@ const Signup = () => {
                   </span>
                 )}
               </div>
-
               {/* Password */}
               <div className="mt-4 space-y-2">
-                <span>Password</span> <br />
+                <span>Password</span>
+                <br />
                 <input
                   type="password"
-                  placeholder="Enter Your Password"
+                  placeholder="Enter your password"
                   className="w-full px-3 py-1 border rounded-md outline-none dark:bg-gray-700"
                   {...register("password", { required: true })}
                 />
@@ -78,14 +104,14 @@ const Signup = () => {
               </div>
               {/* Button */}
               <div className="flex justify-around mt-4">
-                <button className="bg-pink-500 text-white rounded-md px-3 py-1  hover:bg-pink-700 duration-200">
-                  SignUp
+                <button className="bg-pink-500 text-white rounded-md px-3 py-1 hover:bg-pink-700 duration-200">
+                  Signup
                 </button>
                 <p className="text-xl">
-                  Have Account ?
+                  Have account?{" "}
                   <button
                     className="underline
-           text-blue-600 cursor-pointer  dark:text-blue-300"
+                    text-blue-600 cursor-pointer  dark:text-blue-300"
                     onClick={() =>
                       document.getElementById("my_modal_3").showModal()
                     }
@@ -101,6 +127,6 @@ const Signup = () => {
       </div>
     </>
   );
-};
+}
 
 export default Signup;
