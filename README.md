@@ -1,5 +1,12 @@
 # Full Stack BookStore Web Application Using (MongoDB, Express Js, React Js & Node Js)
 
+_Create a new .env file in Backend folder:- .env_
+
+- and put data into the file as follows:
+
+  - PORT = 1234
+  - MongoDBURL ="mongodb://localhost:27017/bookStore"
+
 - For frontend applications we have used the React Js and Daisy UI components.
 - For backend applications we have used the Express Js and Node Js components.
 - For Database we have used the Mongo DB Database
